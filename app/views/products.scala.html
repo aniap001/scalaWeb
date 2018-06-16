@@ -1,0 +1,7 @@
+@(products: List[Product])
+
+<ul>
+@for(product <- products) {
+    <li>@product.name</li>
+}
+</ul>
