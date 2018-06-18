@@ -1,57 +1,17 @@
-# play-scala-starter-example
+# play-slick3-steps example
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/740e586f17964c779ce3c146c272c560)](https://www.codacy.com)
+[![Build Status](https://travis-ci.org/pedrorijo91/play-slick3-steps.svg)](https://travis-ci.org/pedrorijo91/play-slick3-steps)
 
-[<img src="https://img.shields.io/travis/playframework/play-scala-starter-example.svg"/>](https://travis-ci.org/playframework/play-scala-starter-example)
+Simple working app using play 2.4 and slick 3.1.0 with mysql. Step by step tutorial at [https://pedrorijo91.github.io/blog/play-slick/](https://pedrorijo91.github.io/blog/play-slick/)
 
-This is a starter application that shows how Play works.  Please see the documentation at <https://www.playframework.com/documentation/latest/Home> for more details.
+Created since the [available demos](https://github.com/playframework/play-slick/tree/master/samples) have too much irrelevant code to who wants to integrate slick 3.1.0 with a play app.
 
-## Running
+Based on [bhavyalatha26/play-scala-slick-example](https://github.com/bhavyalatha26/play-scala-slick-example).
 
-Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from <http://www.playframework.com/download> then you'll find a prepackaged version of sbt in the project directory:
+Removed some code such as:
 
-```bash
-sbt run
-```
-
-And then go to <http://localhost:9000> to see the running web application.
-
-There are several demonstration files available in this template.
-
-## Controllers
-
-- HomeController.scala:
-
-  Shows how to handle simple HTTP requests.
-
-- AsyncController.scala:
-
-  Shows how to do asynchronous programming when handling a request.
-
-- CountController.scala:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
-
-## Components
-
-- Module.scala:
-
-  Shows how to use Guice to bind all the components needed by your application.
-
-- Counter.scala:
-
-  An example of a component that contains state, in this case a simple counter.
-
-- ApplicationTimer.scala:
-
-  An example of a component that starts when the application starts and stops
-  when the application stops.
-
-## Filters
-
-- Filters.scala:
-
-  Creates the list of HTTP filters used by your application.
-
-- ExampleFilter.scala
-
-  A simple filter that adds a header to every response.
+* Dependency Injection with [guice](https://github.com/google/guice)
+* Traits and implementation classes
+* Useless controllers
+* Support for i18n
+* activator

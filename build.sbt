@@ -1,17 +1,23 @@
-name := """play-scala-starter-example"""
+name := """slick3play"""
 
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-resolvers += Resolver.sonatypeRepo("snapshots")
+scalaVersion := "2.11.6"
 
-scalaVersion := "2.12.6"
+libraryDependencies ++= Seq(
+  cache,
+  ws,
+  specs2 % Test,
+  "mysql" % "mysql-connector-java" % "5.1.34",
+  "com.typesafe.play" %% "play-slick" % "1.1.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0"
+)
+libraryDependencies ++= Seq("com.typesafe.play" % "play-json_2.11" % "2.4.2")
 
-crossScalaVersions := Seq("2.11.12", "2.12.6")
+resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
-libraryDependencies += guice
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
-libraryDependencies += "com.h2database" % "h2" % "1.4.197"
-libraryDependencies += jdbc
-libraryDependencies ++= Seq("org.playframework.anorm" %% "anorm" % "2.6.2")
+// Play provides two styles of routers, one expects its actions to be injected, the
+// other, legacy style, accesses its actions statically.
+routesGenerator := InjectedRoutesGenerator
