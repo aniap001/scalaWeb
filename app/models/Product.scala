@@ -2,18 +2,54 @@ package models
 
 import play.api.Play
 import play.api.data.Form
-import play.api.data.Forms._
 import play.api.db.slick.DatabaseConfigProvider
-import play.api.libs.json.Json
 
 import scala.concurrent.Future
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
-
-import scala.collection.mutable.ListBuffer
-import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.data.Forms._
 
 case class Product(id: Long, name: String, description: String, price: Int)
+
+case class ProductForm(name: String, description: String, price: Int)
+
+
+
+class ProductTableDef(tag: Tag) extends Table[Product](tag, "products") {
+
+  def id = column[Long]("id", O.PrimaryKey,O.AutoInc)
+  def name = column[String]("name")
+  def description = column[String]("description")
+  def price = column[Int]("price")
+
+  override def * =
+    (id, name, description, price) <>(Product.tupled, Product.unapply)
+}
+
+object ProductForm {
+  val productForm = Form[ProductForm](
+    mapping(
+      "name" -> text,
+      "description" -> text,
+      "price" -> number
+    )(ProductForm.apply)(ProductForm.unapply)
+  )
+}
+
+object Products {
+  val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
+  val products = TableQuery[ProductTableDef]
+
+
+
+
+
+  def listAll: Future[Seq[Product]] = {
+    dbConfig.db.run(products.result)
+  }
+}
+
+/*
 
 case class ProductFormData(name: String, description: String, price: Int)
 
@@ -92,5 +128,5 @@ object Products {
     dbConfig.db.run(products.result)
   }
 
+*/
 
-}

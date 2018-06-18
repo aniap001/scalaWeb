@@ -1,0 +1,23 @@
+@import helper._
+@(pForm: Form[ProductForm])(implicit messages: Messages)
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+    @header()
+    </head>
+    <body>
+        <div class="container">
+            @menu()
+
+            @form(action = routes.ProductsController.saveProduct()) {
+                @inputText(pForm("name"), )
+                @inputText(pForm("description"))
+                @input(pForm("price"))
+
+                <input type="submit" class="btn btn-primary" value="Dodaj produkt">
+            }
+            <a href="/produkty">Powrót do listy produktów</a>
+        </div>
+    </body>
+</html>

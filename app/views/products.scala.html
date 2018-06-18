@@ -1,44 +1,43 @@
 @(products : Seq[models.Product])(implicit request: RequestHeader)
 
-@main() {
-    <h1 class="header center teal-text text-lighten-2">Lista produktów</h1>
+<!DOCTYPE html>
 
-    <div class="container">
-        <div class="section">
+<html lang="en">
+    <head>
+        @header()
+    </head>
+    <body>
+        <div class="container">
+            @menu()
+            <h1>Lista produktów</h1>
+            @if(products.length > 0) {
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nazwa</th>
+                            <th>Opis</th>
+                            <th>Cena</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for(product <- products) {
+                        <tr>
+                            <td>@product.id</td>
+                            <td>@product.name</td>
+                            <td>@product.description</td>
+                            <td>@product.price PLN</td>
+                        </tr>
+                    }
 
+                    </tbody>
+                </table>
+            }
+            @if(products.length == 0){
+                <h3 class="text-warning">Brak produktów w bazie! Dodaj nowe produkty, aby móc je wyświetlić.</h3>
 
-            <div class="row">
-                <div class="col s12">
-
-                    <table class="highlight">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nazwa produktu</th>
-                                <th>Opis</th>
-                                <th>Cena</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @for((product, index) <- products.zipWithIndex){
-                            <tr>
-                                <td>@(index+1)</td>
-                                <td>@product.name</td>
-                                <td>@product.description</td>
-                                <td>@product.price PLN</td>
-                            </tr>
-                        }
-                        @if(products.length == 0){
-                            <tr>
-                                <td colspan="7">Brak produktów</td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
+            }
+            <a href="/products/add"><button class="btn btn-success">Dodaj nowy produkt</button></a>
         </div>
-    </div>
-
-}
+    </body>
+</html>

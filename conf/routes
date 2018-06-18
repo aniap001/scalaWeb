@@ -1,12 +1,9 @@
 # Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
-
-# Home page
-GET     /produkty                   controllers.ProductsController.index
+GET     /                           controllers.ProductsController.welcome
+GET     /products                   controllers.ProductsController.listAll
+GET     /products/add               controllers.ProductsController.addProduct
+POST    /product/save               controllers.ProductsController.saveProduct
 
 #GET     /delete/:id                 controllers.ProductsController.deleteProduct(id : Long)
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+#GET     /products/:id               controllers.ProductsController.showProduct(id : Long)
 
