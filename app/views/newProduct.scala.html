@@ -11,13 +11,12 @@
             @menu()
 
             @form(action = routes.ProductsController.saveProduct()) {
-                @inputText(pForm("name"), )
+                @inputText(pForm("name"))
                 @inputText(pForm("description"))
-                @input(pForm("price"))
-
+                @inputText(pForm("price"), 'type -> "number")
                 <input type="submit" class="btn btn-primary" value="Dodaj produkt">
             }
-            <a href="/produkty">Powrót do listy produktów</a>
+            <a href="/products">Powrót do listy produktów</a>
         </div>
     </body>
 </html>
