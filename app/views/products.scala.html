@@ -18,6 +18,7 @@
                             <th>Nazwa</th>
                             <th>Opis</th>
                             <th>Cena</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,8 @@
                             <td>@product.name</td>
                             <td>@product.description</td>
                             <td>@product.price PLN</td>
+                            <td><a href=@routes.ProductsController.editProduct(product.id)>Edytuj</a>
+                            </td>
                         </tr>
                     }
 

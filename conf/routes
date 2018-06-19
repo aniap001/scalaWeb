@@ -3,7 +3,8 @@ GET     /                           controllers.ProductsController.welcome
 GET     /products                   controllers.ProductsController.listAll
 GET     /products/add               controllers.ProductsController.addProduct
 POST    /product/save               controllers.ProductsController.saveProduct
-
+GET     /products/edit/:id          controllers.ProductsController.editProduct(id: Long)
+POST    /products/edit/save          controllers.ProductsController.saveProductAfterUpdate
 #GET     /delete/:id                 controllers.ProductsController.deleteProduct(id : Long)
 #GET     /products/:id               controllers.ProductsController.showProduct(id : Long)
 

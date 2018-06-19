@@ -13,7 +13,7 @@ case class Product(id: Long, name: String, description: String, price: Int)
 
 case class ProductForm(name: String, description: String, price: Int)
 
-
+case class ProductUpdateForm(id: Long, name: String, description: String, price: Int)
 
 class ProductTableDef(tag: Tag) extends Table[Product](tag, "products") {
 
@@ -29,10 +29,21 @@ class ProductTableDef(tag: Tag) extends Table[Product](tag, "products") {
 object ProductForm {
   val productForm = Form[ProductForm](
     mapping(
-      "name" -> nonEmptyText(3),
-      "description" -> nonEmptyText(5),
-      "price" -> number(1, 1000)
+      "name" -> nonEmptyText,
+      "description" -> nonEmptyText,
+      "price" -> number
     )(ProductForm.apply)(ProductForm.unapply)
+  )
+}
+
+object ProductUpdateForm {
+  val productUpdateForm = Form[ProductUpdateForm](
+    mapping(
+      "id" -> longNumber,
+      "name" -> nonEmptyText,
+      "description" -> nonEmptyText,
+      "price" -> number
+    )(ProductUpdateForm.apply)(ProductUpdateForm.unapply)
   )
 }
 
@@ -46,6 +57,16 @@ object Products {
 
   def add(product: Product): Future[String] = {
     dbConfig.db.run(products += product).map(res => "Product successfully added").recover {
+      case ex: Exception => ex.getCause.getMessage
+    }
+  }
+
+  def get(id: Long): Future[Option[Product]] = {
+    dbConfig.db.run(products.filter(_.id === id).result.headOption)
+  }
+
+  def update(product: Product): Future[String] = {
+    dbConfig.db.run(products.withFilter(_.id === product.id).update(product)).map(res => "Product successfully updated").recover {
       case ex: Exception => ex.getCause.getMessage
     }
   }
@@ -77,18 +98,6 @@ object ProductForm {
       "description" -> nonEmptyText,
       "price" -> number
     )(ProductFormData.apply)(ProductFormData.unapply)
-  )
-}
-
-object ProductUpdateForm {
-
-  val form = Form(
-    mapping(
-      "id" -> longNumber,
-      "name" -> nonEmptyText,
-      "description" -> nonEmptyText,
-      "price" -> number
-    )(ProductUpdateFormData.apply)(ProductUpdateFormData.unapply)
   )
 }
 

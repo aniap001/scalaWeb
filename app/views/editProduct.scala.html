@@ -1,0 +1,23 @@
+@import helper._
+@(pForm: Form[ProductUpdateForm])(implicit messages: Messages)
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        @header()
+    </head>
+    <body>
+        <div class="container">
+            @menu()
+
+            @form(action = routes.ProductsController.saveProductAfterUpdate) {
+                @inputText(pForm("id"), 'readonly -> "readonly")
+                @inputText(pForm("name"))
+                @inputText(pForm("description"))
+                @inputText(pForm("price"), 'type -> "number")
+                <input type="submit" class="btn btn-primary" value="Aktualizuj produkt">
+            }
+            <a href="/products">Powrót do listy produktów</a>
+        </div>
+    </body>
+</html>

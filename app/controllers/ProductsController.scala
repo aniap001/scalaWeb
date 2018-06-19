@@ -35,9 +35,24 @@ class ProductsController @Inject() (val messagesApi: MessagesApi) extends Contro
     }
   }
 
+  def editProduct(id: Long) = Action.async { implicit request =>
+
+    ProductService.getProduct(id) map { product =>
+      val form = ProductUpdateForm.productUpdateForm.fill(ProductUpdateForm(product.get.id, product.get.name, product.get.description, product.get.price))
+      Ok(views.html.editProduct(form))
+    }
+  }
+
+  def saveProductAfterUpdate() = Action.async { implicit request =>
+    val formData: ProductUpdateForm = ProductUpdateForm.productUpdateForm.bindFromRequest.get
+    ProductService.updateProduct(Product(formData.id, formData.name, formData.description, formData.price)).map( message =>
+      Redirect(routes.ProductsController.listAll())
+    )
+  }
+
   def saveProduct() = Action.async { implicit request =>
     val formData: ProductForm = ProductForm.productForm.bindFromRequest.get
-    ProductService.addProduct(new Product(-1, formData.name, formData.description, formData.price)).map( message =>
+    ProductService.addProduct(Product(-1, formData.name, formData.description, formData.price)).map( message =>
       Redirect(routes.ProductsController.listAll())
     )
   }

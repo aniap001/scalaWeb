@@ -13,4 +13,12 @@ object ProductService {
   def addProduct(product: Product): Future[String] = {
     Products.add(product)
   }
+
+  def getProduct(id: Long): Future[Option[Product]] = {
+    Products.get(id)
+  }
+
+  def updateProduct(product: Product): Future[String] = {
+    Products.update(product)
+  }
 }
