@@ -56,5 +56,11 @@ class ProductsController @Inject() (val messagesApi: MessagesApi) extends Contro
       Redirect(routes.ProductsController.listAll())
     )
   }
+
+  def deleteProduct(id: Long) = Action.async { implicit request =>
+    ProductService.deleteProduct(id).map( message =>
+      Redirect(routes.ProductsController.listAll())
+    )
+  }
 }
 

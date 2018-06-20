@@ -28,7 +28,9 @@
                             <td>@product.name</td>
                             <td>@product.description</td>
                             <td>@product.price PLN</td>
-                            <td><a href=@routes.ProductsController.editProduct(product.id)>Edytuj</a>
+                            <td>
+                                <a href=@routes.ProductsController.editProduct(product.id)><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
+                                <a href=@routes.ProductsController.deleteProduct(product.id)><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     }

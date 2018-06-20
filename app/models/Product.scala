@@ -70,6 +70,10 @@ object Products {
       case ex: Exception => ex.getCause.getMessage
     }
   }
+
+  def delete(id: Long): Future[String] = {
+    dbConfig.db.run(products.withFilter(_.id === id).delete.map(res => "Product successfully deleted"));
+  }
 }
 
 /*

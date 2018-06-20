@@ -21,4 +21,8 @@ object ProductService {
   def updateProduct(product: Product): Future[String] = {
     Products.update(product)
   }
+
+  def deleteProduct(id: Long): Future[String] = {
+    Products.delete(id)
+  }
 }
