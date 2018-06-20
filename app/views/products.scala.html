@@ -9,46 +9,61 @@
     </head>
     <body>
         <div class="container">
-            @menu()
-            @form(action = routes.ProductsController.searchProducts()) {
-                @inputText(productSearchForm("name"), '_label -> "Nazwa")
-                @inputText(productSearchForm("description"), '_label -> "Opis")
-                <input type="submit" class="btn btn-primary" value="Szukaj">
-            }
-            <h1>Lista produktów</h1>
-            @if(products.length > 0) {
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nazwa</th>
-                            <th>Opis</th>
-                            <th>Cena</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @for(product <- products) {
-                        <tr>
-                            <td>@product.id</td>
-                            <td>@product.name</td>
-                            <td>@product.description</td>
-                            <td>@product.price PLN</td>
-                            <td>
-                                <a href=@routes.ProductsController.editProduct(product.id)><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
-                                <a href=@routes.ProductsController.deleteProduct(product.id)><span class="glyphicon glyphicon-trash"></span></a>
-                            </td>
-                        </tr>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h3>Wyszukiwarka</h3>
+                    @form(action = routes.ProductsController.searchProducts()) {
+                        <div class="row">
+                            <div class="col-sm-3 ">
+                            @inputText(productSearchForm("name"), '_label -> "Nazwa", 'class -> "form-control")
+                            </div>
+                            <div class="col-sm-3">
+                            @inputText(productSearchForm("description"), '_label -> "Opis", 'class -> "form-control")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-sm-offset-5">
+                                <input type="submit" class="btn btn-primary" value="Szukaj">
+                            </div>
+                        </div>
                     }
+                    <h3>Lista produktów
+                        <a href="/products/add"><button class="btn btn-success" style="float: right">Dodaj nowy produkt</button></a>
+                    </h3>
+                    @if(products.length > 0) {
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nazwa</th>
+                                    <th>Opis</th>
+                                    <th>Cena</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @for(product <- products) {
+                                <tr>
+                                    <td>@product.id</td>
+                                    <td>@product.name</td>
+                                    <td>@product.description</td>
+                                    <td>@product.price PLN</td>
+                                    <td>
+                                        <a href=@routes.ProductsController.editProduct(product.id)><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
+                                        <a href=@routes.ProductsController.deleteProduct(product.id)><span class="glyphicon glyphicon-trash"></span></a>
+                                    </td>
+                                </tr>
+                            }
 
-                    </tbody>
-                </table>
-            }
-            @if(products.length == 0){
-                <h3 class="text-warning">Brak produktów w bazie! Dodaj nowe produkty, aby móc je wyświetlić.</h3>
+                            </tbody>
+                        </table>
+                    }
+                    @if(products.length == 0){
+                        <h3 class="text-warning">Brak produktów w bazie! Dodaj nowe produkty, aby móc je wyświetlić.</h3>
 
-            }
-            <a href="/products/add"><button class="btn btn-success">Dodaj nowy produkt</button></a>
+                    }
+                </div>
+            </div>
         </div>
     </body>
 </html>

@@ -8,15 +8,22 @@
     </head>
     <body>
         <div class="container">
-            @menu()
-
-            @form(action = routes.ProductsController.saveProduct()) {
-                @inputText(pForm("name"), '_label -> "Nazwa")
-                @inputText(pForm("description"), '_label -> "Opis")
-                @inputText(pForm("price"), 'type -> "number", '_label -> "Cena (PLN)")
-                <input type="submit" class="btn btn-primary" value="Dodaj produkt">
-            }
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h3>Dodanie produktu</h3>
+                    @form(action = routes.ProductsController.saveProduct()) {
+                        @inputText(pForm("name"), '_label -> "Nazwa", 'class -> "form-control")
+                        @inputText(pForm("description"), '_label -> "Opis", 'class -> "form-control")
+                        @inputText(pForm("price"), 'type -> "number", '_label -> "Cena (PLN)", 'class -> "form-control")
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-4">
+                                <input type="submit" class="btn btn-primary" value="Dodaj produkt">
+                            </div>
+                        </div>
+                    }
             <a href="/products">Powrót do listy produktów</a>
+                </div>
+            </div>
         </div>
     </body>
 </html>
