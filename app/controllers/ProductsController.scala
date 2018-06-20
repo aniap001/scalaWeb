@@ -31,7 +31,14 @@ class ProductsController @Inject() (val messagesApi: MessagesApi) extends Contro
   def listAll() = Action.async { implicit request =>
 
     ProductService.listAllProducts map { productsDB =>
-      Ok(views.html.products(productsDB))
+      Ok(views.html.products(productsDB, ProductSearchForm.productSearchForm))
+    }
+  }
+
+  def searchProducts() = Action.async { implicit request =>
+    val form: Form[ProductSearchForm] = ProductSearchForm.productSearchForm.bindFromRequest
+    ProductService.searchProducts(form.get.name, form.get.description) map { productsDB =>
+      Ok(views.html.products(productsDB, form))
     }
   }
 

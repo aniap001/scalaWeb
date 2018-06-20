@@ -6,5 +6,6 @@ POST    /product/save               controllers.ProductsController.saveProduct
 GET     /products/edit/:id          controllers.ProductsController.editProduct(id: Long)
 POST    /products/edit/save          controllers.ProductsController.saveProductAfterUpdate
 GET     /delete/:id                 controllers.ProductsController.deleteProduct(id : Long)
+GET     /products/search            controllers.ProductsController.searchProducts
 #GET     /products/:id               controllers.ProductsController.showProduct(id : Long)
 

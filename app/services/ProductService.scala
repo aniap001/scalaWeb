@@ -10,6 +10,10 @@ object ProductService {
     Products.listAll
   }
 
+  def searchProducts(name: String, description: String) : Future[Seq[Product]] = {
+    Products.search(name, description)
+  }
+
   def addProduct(product: Product): Future[String] = {
     Products.add(product)
   }

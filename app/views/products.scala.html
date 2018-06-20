@@ -1,4 +1,5 @@
-@(products : Seq[models.Product])(implicit request: RequestHeader)
+@import helper._
+@(products : Seq[models.Product], productSearchForm: Form[ProductSearchForm])(implicit request: RequestHeader, messages: Messages)
 
 <!DOCTYPE html>
 
@@ -9,6 +10,11 @@
     <body>
         <div class="container">
             @menu()
+            @form(action = routes.ProductsController.searchProducts()) {
+                @inputText(productSearchForm("name"), '_label -> "Nazwa")
+                @inputText(productSearchForm("description"), '_label -> "Opis")
+                <input type="submit" class="btn btn-primary" value="Szukaj">
+            }
             <h1>Lista produktów</h1>
             @if(products.length > 0) {
                 <table class="table table-responsive">

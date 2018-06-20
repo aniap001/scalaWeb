@@ -15,6 +15,8 @@ case class ProductForm(name: String, description: String, price: Int)
 
 case class ProductUpdateForm(id: Long, name: String, description: String, price: Int)
 
+case class ProductSearchForm(name: String, description: String)
+
 class ProductTableDef(tag: Tag) extends Table[Product](tag, "products") {
 
   def id = column[Long]("id", O.PrimaryKey,O.AutoInc)
@@ -47,12 +49,25 @@ object ProductUpdateForm {
   )
 }
 
+object ProductSearchForm {
+  val productSearchForm = Form[ProductSearchForm](
+    mapping(
+      "name" -> text,
+      "description" -> text
+    )(ProductSearchForm.apply)(ProductSearchForm.unapply)
+  )
+}
+
 object Products {
   val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
   val products = TableQuery[ProductTableDef]
 
   def listAll: Future[Seq[Product]] = {
     dbConfig.db.run(products.result)
+  }
+
+  def search(name: String, description: String): Future[Seq[Product]] = {
+    dbConfig.db.run(products.filter(product => (product.name like '%' + name + '%') && (product.description like '%' + description + '%')).result)
   }
 
   def add(product: Product): Future[String] = {
