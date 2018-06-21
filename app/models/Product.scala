@@ -31,8 +31,8 @@ class ProductTableDef(tag: Tag) extends Table[Product](tag, "products") {
 object ProductForm {
   val productForm = Form[ProductForm](
     mapping(
-      "name" -> nonEmptyText,
-      "description" -> nonEmptyText,
+      "name" -> text,
+      "description" -> text,
       "price" -> number
     )(ProductForm.apply)(ProductForm.unapply)
   )
@@ -42,8 +42,8 @@ object ProductUpdateForm {
   val productUpdateForm = Form[ProductUpdateForm](
     mapping(
       "id" -> longNumber,
-      "name" -> nonEmptyText,
-      "description" -> nonEmptyText,
+      "name" -> text,
+      "description" -> text,
       "price" -> number
     )(ProductUpdateForm.apply)(ProductUpdateForm.unapply)
   )
